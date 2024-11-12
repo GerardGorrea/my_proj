@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
 {
+    const TYPES = ['Type1'=>'Type1', 'Type2'=>'Type2' /*posar mes opcions si es necessari*/];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -44,8 +46,15 @@ class Post
     #[ORM\OneToMany(targetEntity: Interaction::class, mappedBy: 'post')]
     private Collection $interactions;
 
-    public function __construct()
+    public function __construct($title = null, $type = null, $description = null, $file = null, $creation_date = null, $url = null)
     {
+        $this->title = $title;
+        $this->type = $type;
+        $this->description = $description;
+        $this->file = $file;
+        $this->Creation_date = new \DateTime();
+        $this->url = $url;
+
         $this->interactions = new ArrayCollection();
     }
 
