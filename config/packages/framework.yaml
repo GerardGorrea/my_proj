@@ -4,11 +4,15 @@ framework:
     #csrf_protection: true
 
     # Note that the session will be started ONLY if you read or write from it.
-    session: true
+    session: 
+        handler_id: null  # Utilitzar el gestor de sessions per defecte
+        cookie_lifetime: 3600  # Opcional: durada de la cookie (1 hora)
+        cookie_secure: auto  # Assegura't que la cookie sigui segura (si utilitzes HTTPS)
+        cookie_samesite: lax  # Recomanat per gestionar les cookies entre diferents dominis
 
     #esi: true
     #fragments: true
-
+    
 when@test:
     framework:
         test: true
