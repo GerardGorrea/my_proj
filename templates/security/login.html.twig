@@ -5,22 +5,60 @@
 {% block body %}
     <h1>Iniciar sessió</h1>
 
-    {# Comprovem si l'usuari està autenticat #}
+    {# Si l'usuari ja està autenticat, mostra un missatge de benvinguda #}
+    {% if app.user %}
+        <div class="alert alert-success">
+            Hola, {{ app.user.username }}! Ja estàs autenticat.
+        </div>
+        <a href="{{ path('home') }}">Torna a l'inici</a>
+    {% else %}
+        {# Formulari d'inici de sessió gestionat pel sistema de seguretat de Symfony #}
+        <form method="post" action="{{ path('app_login') }}">
+            {# Mostrar error d'inici de sessió si n'hi ha #}
+            {% if error %}
+                <div class="error">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+
+            <div>
+                <label for="username">Email:</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" required autofocus>
+            </div>
+            <div>
+                <label for="password">Contrasenya:</label>
+                <input type="password" id="password" name="_password" required>
+            </div>
+
+            <button type="submit">Iniciar sessió</button>
+        </form>
+    {% endif %}
+{% endblock %}
+
+
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Iniciar sessió{% endblock %}
+
+{% block body %}
+    <h1>Iniciar sessió</h1>
+
+    {# Comprovem si l'usuari està autenticat # }
     {% if app.user %}
         <div class="alert alert-success">
             Hola, {{ app.user.username }}! Ja estàs autenticat.
         </div>
     {% else %}
-        {# Si l'usuari no està autenticat, mostrem el formulari #}
-        <h5>Usuari</h5>
+        {# Si l'usuari no està autenticat, mostrem el formulari # }
         {{ form_start(form) }}
+            <h5>Email</h5>
             {{ form_widget(form.username) }}
             <h5>Contrassenya</h5>
             {{ form_widget(form.password) }}
             <button type="submit">Iniciar sessió</button>
         {{ form_end(form) }}
 
-        {# Mostrar error d'inici de sessió si n'hi ha #}
+        {# Mostrar error d'inici de sessió si n'hi ha # }
         {% if error %}
             <div class="error">
                 {{ error.messageKey|trans(error.messageData, 'security') }}
@@ -28,7 +66,7 @@
         {% endif %}
     {% endif %}
 
-    {# Afegeix un dump per veure què està passant a la vista #}
+    {# Afegeix un dump per veure què està passant a la vista # }
     {{ dump(app.user) }}
 {% endblock %}
-{# asuhdahsdhiasuhduashdiashdiuahsdiaushdiuahdiuashdiuash #}
+asuhdahsdhiasuhduashdiashdiuahsdiaushdiuahdiuashdiuash #}
