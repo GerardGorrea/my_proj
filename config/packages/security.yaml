@@ -20,7 +20,7 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
-                default_target_path: app_post  # O la ruta que vols per defecte després del login exitós
+                default_target_path: app_home  # O la ruta que vols per defecte després del login exitós
 
             logout:
                 path: /logout
@@ -29,4 +29,5 @@ security:
     access_control:
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/register, roles: PUBLIC_ACCESS }
+        - { path: ^/post, roles: ROLE_USER }
         - { path: ^/(.+), roles: ROLE_USER }

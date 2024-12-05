@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block body %}
 <div class="header bg-dark p-3 text-start">
@@ -50,11 +50,9 @@
     </nav>
 </div>
 
-<div class="container d-flex justify-content-center mt-5">
-    <div class="p-5 rounded" style="width: 500px; background-color: #d1d1d1d1;">
-        <p class="h1 text-center mb-4"> REGISTER </p>
-        {{ form(registration_form) }}
+    <div class="container text-center my-5">
+        <p class="h1 display-4 text-white">Benvingut a la pàgina d'inici!</p>
+        <p class="lead text-white">Aquesta és la teva pàgina inicial.</p>
+        <p class="text-white">Benvingut al nostre lloc web creat amb Symfony.</p>
     </div>
-</div>
-
 {% endblock %}

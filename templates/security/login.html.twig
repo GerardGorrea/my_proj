@@ -1,72 +1,86 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Iniciar sessió{% endblock %}
+{% block title %}Log In{% endblock %}
 
 {% block body %}
-    <h1>Iniciar sessió</h1>
+<div class="header bg-dark p-3 text-start">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a href="{{ path('app_home') }}">
+                <img src="/images/logo.png" class="ms-2" style="height: 32px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_post') }}">Post</a>
+                </li>
+                {% if app.user %}
+                    {# Si l'usuari està autenticat, mostra "Log out" #}
+                    <li>
+                        <a class="nav-link" href="{{ path('_logout_main') }}">Log out</a>
+                    </li>
+                {% else %}
+                    {# Si l'usuari no està autenticat, mostra "Log in" #}
+                    <li>
+                        <a class="nav-link" href="{{ path('app_login') }}">Log In</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('userRegister') }}">Register</a>
+                </li>
 
-    {# Si l'usuari ja està autenticat, mostra un missatge de benvinguda #}
-    {% if app.user %}
-        <div class="alert alert-success">
-            Hola, {{ app.user.username }}! Ja estàs autenticat.
+                {# drop-down opcional #}
+
+                {# <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li> #}
+            </ul>
         </div>
-        <a href="{{ path('home') }}">Torna a l'inici</a>
-    {% else %}
-        {# Formulari d'inici de sessió gestionat pel sistema de seguretat de Symfony #}
-        <form method="post" action="{{ path('app_login') }}">
-            {# Mostrar error d'inici de sessió si n'hi ha #}
-            {% if error %}
-                <div class="error">
-                    {{ error.messageKey|trans(error.messageData, 'security') }}
+    </nav>
+</div>
+
+<div class="container d-flex justify-content-center mt-5">
+    <div class="p-5 rounded" style="width: 500px; background-color: #d1d1d1d1;">
+        <p class="h1 text-center mb-4"> LOG IN </p>
+        {# Si l'usuari ja està autenticat, mostra un missatge de benvinguda #}
+        {% if app.user %}
+            <div class="alert alert-success">
+                Hola, {{ app.user.username }}! Ja estàs autenticat.
+            </div>
+            <a href="{{ path('home') }}" class="btn btn-primary">Torna a l'inici</a>
+        {% else %}
+            {# Formulari d'inici de sessió gestionat pel sistema de seguretat de Symfony #}
+            <form method="post" action="{{ path('app_login') }}">
+                {# Mostrar error d'inici de sessió si n'hi ha #}
+                {% if error %}
+                    <div class="alert alert-danger">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Email:</label>
+                    <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}" required autofocus>
                 </div>
-            {% endif %}
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contrasenya:</label>
+                    <input type="password" id="password" name="_password" class="form-control" required>
+                </div>
 
-            <div>
-                <label for="username">Email:</label>
-                <input type="text" id="username" name="_username" value="{{ last_username }}" required autofocus>
-            </div>
-            <div>
-                <label for="password">Contrasenya:</label>
-                <input type="password" id="password" name="_password" required>
-            </div>
-
-            <button type="submit">Iniciar sessió</button>
-        </form>
-    {% endif %}
-{% endblock %}
-
-
-{# {% extends 'base.html.twig' %}
-
-{% block title %}Iniciar sessió{% endblock %}
-
-{% block body %}
-    <h1>Iniciar sessió</h1>
-
-    {# Comprovem si l'usuari està autenticat # }
-    {% if app.user %}
-        <div class="alert alert-success">
-            Hola, {{ app.user.username }}! Ja estàs autenticat.
-        </div>
-    {% else %}
-        {# Si l'usuari no està autenticat, mostrem el formulari # }
-        {{ form_start(form) }}
-            <h5>Email</h5>
-            {{ form_widget(form.username) }}
-            <h5>Contrassenya</h5>
-            {{ form_widget(form.password) }}
-            <button type="submit">Iniciar sessió</button>
-        {{ form_end(form) }}
-
-        {# Mostrar error d'inici de sessió si n'hi ha # }
-        {% if error %}
-            <div class="error">
-                {{ error.messageKey|trans(error.messageData, 'security') }}
-            </div>
+                <button type="submit" class="btn btn-danger w-100">Iniciar sessió</button>
+            </form>
         {% endif %}
-    {% endif %}
-
-    {# Afegeix un dump per veure què està passant a la vista # }
-    {{ dump(app.user) }}
+    </div>
+</div>
 {% endblock %}
-asuhdahsdhiasuhduashdiashdiuahsdiaushdiuahdiuashdiuash #}

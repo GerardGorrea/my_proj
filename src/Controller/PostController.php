@@ -22,7 +22,7 @@ class PostController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/', name: 'app_post')]
+    #[Route('/post', name: 'app_post')]
     public function index(Request $request): Response
     {
        $post = new Post();
