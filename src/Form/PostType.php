@@ -35,11 +35,6 @@ class PostType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'required' => false
             ])
-            ->add('creation_date', DateType::class, [
-                'widget' => 'single_text',
-                'attr' => ['class' => 'form-control'],
-                'data' => new \DateTime()
-            ])
             ->add('url', TextType::class, [
                 'attr' => ['class' => 'form-control', 'placeholder' => 'URL del post']
             ])

@@ -30,8 +30,8 @@ class Post
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $file = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $creation_date = null;
+    // #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    // private ?\DateTimeInterface $creation_date = null;
 
     #[ORM\Column(type: 'text', length: 255)]
     private ?string $url = null;
@@ -52,7 +52,7 @@ class Post
         $this->type = $type;
         $this->description = $description;
         $this->file = $file;
-        $this->Creation_date = new \DateTime();
+        // $this->Creation_date = new \DateTime();
         $this->url = $url;
 
         $this->interactions = new ArrayCollection();
@@ -111,17 +111,17 @@ class Post
         return $this;
     }
 
-    public function getCreationDate(): ?\DateTimeInterface
-    {
-        return $this->creation_date;
-    }
+    // public function getCreationDate(): ?\DateTimeInterface
+    // {
+    //     return $this->creation_date;
+    // }
 
-    public function setCreationDate(\DateTimeInterface $creation_date): static
-    {
-        $this->creation_date = $creation_date;
+    // public function setCreationDate(\DateTimeInterface $creation_date): static
+    // {
+    //     $this->creation_date = $creation_date;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getUrl(): ?string
     {
